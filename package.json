@@ -28,7 +28,9 @@
     "watch-tests": "tsc -p . -w --outDir out",
     "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
     "lint": "eslint src --ext ts",
-    "test": "vscode-test"
+    "format": "eslint src --ext ts --fix",
+    "test": "vscode-test",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.6",
@@ -48,5 +50,8 @@
     "typescript": "^5.4.5",
     "webpack": "^5.92.0",
     "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "husky": "^9.1.6"
   }
 }
