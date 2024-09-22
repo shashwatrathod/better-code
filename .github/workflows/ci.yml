@@ -58,4 +58,4 @@ jobs:
       - name: Run tests
         run: sudo Xvfb :99 &
           export DISPLAY=:99
-          npx vscode-test --extensionDevelopmentPath=$(pwd) --extensionTestsPath=$(pwd)/out/test
+          pnpm test
