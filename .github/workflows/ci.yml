@@ -52,5 +52,10 @@ jobs:
       - name: Compile Extension
         run: pnpm run vscode:prepublish
 
+      - name: Install Xvfb
+        run: sudo apt-get install xvfb
+
       - name: Run tests
-        run: npx vscode-test --extensionDevelopmentPath=$(pwd) --extensionTestsPath=$(pwd)/out/test
+        run: sudo Xvfb :99 &
+          export DISPLAY=:99
+          npx vscode-test --extensionDevelopmentPath=$(pwd) --extensionTestsPath=$(pwd)/out/test
