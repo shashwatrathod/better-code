@@ -49,5 +49,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      - name: Compile Extension
+        run: pnpm run vscode:prepublish
+
       - name: Run tests
-        run: pnpm test
+        run: npx vscode-test --extensionDevelopmentPath=$(pwd) --extensionTestsPath=$(pwd)/out/test
