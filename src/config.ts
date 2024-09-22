@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import { equalsIgnoreCase } from './utils';
+import { VSC_API_CREDS_KEY, VSC_PREFERENCE_CONFIG_KEY } from './constants';
 
 /**
  * The GPT providers currently supported by the extension.
@@ -28,10 +29,11 @@ class Config {
   }
 
   /**
-   * API key as configured by the user in the extension settings.
+   * @returns API key as configured by the user in the extension settings. Returns null if
+   * there the user has not configured any API keys.
    */
   public get apiKey(): string | undefined {
-    return vscode.workspace.getConfiguration('betterCode.apiKey').toString();
+    return vscode.workspace.getConfiguration(VSC_API_CREDS_KEY).toString();
   }
 
   /**
@@ -39,7 +41,7 @@ class Config {
    */
   public get servicePreference(): SupportedGptServices {
     const serviceName = vscode.workspace
-      .getConfiguration('betterCode.servicePerference')
+      .getConfiguration(VSC_PREFERENCE_CONFIG_KEY)
       .toString();
     const service = this.getSupportedGptServiceFromServiceName(serviceName);
     return service || this.DEFAULT_SERVICE_PERFERENCE;
@@ -48,9 +50,9 @@ class Config {
   private getSupportedGptServiceFromServiceName(
     serviceName: string,
   ): SupportedGptServices | null {
-    if (equalsIgnoreCase(serviceName, 'ChatGPT')) {
+    if (equalsIgnoreCase(serviceName, SupportedGptServices.ChatGPT)) {
       return SupportedGptServices.ChatGPT;
-    } else if (equalsIgnoreCase(serviceName, 'Gemini')) {
+    } else if (equalsIgnoreCase(serviceName, SupportedGptServices.Gemini)) {
       return SupportedGptServices.Gemini;
     } else {
       return null;
